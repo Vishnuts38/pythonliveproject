@@ -1,0 +1,187 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        * {
+          box-sizing: border-box;
+          }
+        
+        /* Create two equal columns that floats next to each other */
+        .column {
+          float: left;
+          width: 50%;
+          padding: 30px;
+          height: 800px; /* Should be removed. Only for demonstration */
+        }
+        
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+        table, th, td {
+            border: 1px solid rgb(1, 7, 2);
+            border-collapse: collapse;
+            }
+            table {
+                border-collapse: collapse;
+                width: 0%;
+                
+            }
+
+            th, td {
+                padding: 5px;
+                text-align: left;
+                }
+                #t01 {
+                    width: 100%;    
+                    background-color: hsl(133, 27%, 94%);
+                    }
+        </style>
+    </head>
+<body>
+
+
+<form method="POST" action="{% url 'pro' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <div class="column" style="background-color:rgb(255, 255, 255);">
+            <h1><b><u>PRODUCT</u></b></h1>
+            <label for="pname">Product name:</label>
+            <input type="text" id="pname" name="pname"><br><br>
+            <div class="form-group">
+                <label for="image">Product Image1:</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custome-file-input" name="image1" >
+                        <label class="custome-file-label" for="image"></label>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <label for="image">Product Image2:</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custome-file-input" name="image2" >
+                        <label class="custome-file-label" for="image"></label>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="form-group">
+                <label for="image">Product Image3</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custome-file-input" name="image3" >
+                        <label class="custome-file-label" for="image"></label>
+                    </div>
+                </div>
+            </div> -->
+            <div class="form-group">
+                <div ><label for="category">Category</label></div>
+                <div class="input-group input-group-merge input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                        <select id="" class="form-control" name="category">
+                            {% for i in cat %}
+                            <option value="{{i.Category_Name}}">{{i.Category_Name}}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="input-group-text"></span>
+                  </div>
+                  
+                </div>
+            </div>
+            <div class="form-group">
+                <div ><label for="category">Sub-Category</label></div>
+                <div class="input-group input-group-merge input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                        <select id="" class="form-control" name="subcategory">
+                            {% for i in scat %}
+                            <option value="{{i.Subcategory_Name}}">{{i.Subcategory_Name}}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="input-group-text"> </span>
+                  </div>
+                  
+                </div>
+            </div>
+              
+            <label for="proddesc">Product description:</label>
+            <input type="text" id="proddesc" name="description"><br><br>
+            <label for="prodprice">Product price:</label>
+            <input type="text" id="prodprice" name="price"><br><br>
+            <label for="stock">Stock:</label>
+            <input type="text" id="purcrate" name="stock"><br><br>
+            <label for="stockstatus">Stock status</label>
+            <input type="text" id="stockstatus" name="stockstatus"><br><br>
+            
+            <input type="submit" value="Submit">
+        </div>
+   
+    </form>
+        <div class="column" style="background-color:rgb(255, 255, 255);">
+            
+            <h1><u><b>PRODUCT LIST</b></u></h1>
+            <form method="POST" action="{% url 'se' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="search">Search</label>
+                <input type="text" placeholder="Product name" name="search">
+                <button type="submit">Search</button>
+            </form>
+            <br>
+            <br>
+            <form action="{% url 'pricerange' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="topnav">
+                  <input type="number" placeholder="Price range from" name="search1">
+                  <input type="number" placeholder="Price range to" name="search2">
+                  <button type="submit">submit</button>
+                </div>
+              </form>
+              <br>
+            <table>
+                <tr>
+                    <th>Product name</th>
+                    <th>Category</th>
+                    
+                    <th>Price</th>
+                    <th>Image1</th>
+                    
+                    
+                </tr>
+                {% for i in datas %}
+                <tr>
+                    <td>
+                        {{i.Name}}
+                    </td>
+                    <td>
+                        {{i.Category}}
+                    </td>
+                   
+                    <td>
+                        {{i.Price}}
+                    </td>
+                    <td>
+                        <img src="{{i.Image1.url}}" style="max-width: 60px; max-height: 60px;">
+                    </td>
+                    <td>
+                        <a href="{% url 'del' prodid=i.id %}">Delete</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'updatepro' prodid=i.id %}">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>  
+        
+    
+
+</body>
+</html>
+{% endblock %}

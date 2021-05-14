@@ -1,0 +1,94 @@
+
+<div class="container-fluid mt--6">
+     
+    <div class="row">
+      <div class="col-xl-8">
+        <div class="card">
+         
+          <div class="card-body px-lg-5 py-lg-5" id="addproduct">
+            
+            <form role="form" method="POST" enctype="multipart/form-data" action="{% url 'updatepro' prodid=id %}">
+                {% csrf_token %}
+                <label for="pname">Product name:</label>
+                <input type="text" id="pname" name="pname" value="{{k.pname}}"><br><br>
+                <div class="form-group">
+                    <label for="image">Product Image1:</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custome-file-input" name="image1" >
+                            <label class="custome-file-label" for="image"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label for="image">Product Image2:</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custome-file-input" name="image2" >
+                            <label class="custome-file-label" for="image"></label>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="form-group">
+                    <label for="image">Product Image3</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custome-file-input" name="image3" >
+                            <label class="custome-file-label" for="image"></label>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <div ><label for="category">Category</label></div>
+                    <div class="input-group input-group-merge input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                            <select id="" class="form-control" name="category" value="{{k.category}}">
+                                {% for i in cat %}
+                                <option value="{{i.Category_Name}}">{{i.Category_Name}}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="input-group-text"></span>
+                      </div>
+                      
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div ><label for="category">Sub-Category</label></div>
+                    <div class="input-group input-group-merge input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                            <select id="" class="form-control" name="subcategory" value="{{k.subcategory}}">
+                                {% for i in scat %}
+                                <option value="{{i.Subcategory_Name}}">{{i.Subcategory_Name}}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="input-group-text"> </span>
+                      </div>
+                      
+                    </div>
+                </div>
+                  
+                <label for="proddesc">Product description:</label>
+                <input type="text" id="proddesc" name="description" value="{{k.description}}"><br><br>
+                <label for="prodprice">Product price:</label>
+                <input type="text" id="prodprice" name="price" value="{{k.price}}"><br><br>
+                <label for="stock">Stock:</label>
+                <input type="text" id="purcrate" name="stock" value="{{k.stock}}"><br><br>
+                <label for="stockstatus">Stock status</label>
+                <input type="text" id="stockstatus" name="stockstatus" value="{{k.stockstatus}}"><br><br>
+            
+             
+              
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary mt-4">submit</button>
+                <a href="{% url 'pro' %}">View Product</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+   
+    </div>
+    <!-- Footer -->
+  
